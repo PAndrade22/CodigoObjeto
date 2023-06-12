@@ -1,4 +1,3 @@
-//Sintaxe para POO
 using System;
 namespace SintaxePOO
 {
@@ -26,7 +25,16 @@ namespace SintaxePOO
     }
     public static void Main(string[] args)
     {
-      Saldo c = new Saldo(2, "Pedro", 100.0);
+      Console.WriteLine("Digite o número da conta: ");
+      int numero = int.Parse(Console.ReadLine());
+
+      Console.WriteLine("Digite o seu nome: ");
+      string nome = Console.ReadLine();
+
+      Console.WriteLine("Digite o saldo da Conta: ");
+      double saldo = double.Parse(Console.ReadLine());
+
+      Saldo c = new Saldo(numero,nome, saldo);
       Console.WriteLine("{0}, {1}, {2}", c.numero, c.nome, c.saldo);
 
     }
