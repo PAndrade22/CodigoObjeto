@@ -66,7 +66,7 @@ namespace SemmpreEmForma
       this.pesoDaPessoa += meta;
     }
     //Programa Principal 
-    public void Main(string[] args)
+    public static void Main(string[] args)
     {
       int pesoDaPessoa = 0;
       float alturaDaPessoa = 0f;
