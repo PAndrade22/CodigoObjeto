@@ -39,6 +39,9 @@ namespace UordiofUorcrefiti
                  public void setutHeroi(int utHeroi){
                     this.utHeroi = utHeroi = 7;
                  }
+                 public void setmagia(string magia){
+                    this.magia = magia;
+                 }
                  //Método aumentar valor atributo
                  public int aumentarUT(int utHeroi)
                  {
@@ -53,9 +56,7 @@ namespace UordiofUorcrefiti
                     utHeroi -= reduzirUTHeroi;
                     return utHeroi;
                  }
-                 public void setmagia(string magia){
-                    this.magia = magia;
-                 }
+    
 
    /********************************************************************************/
    /********************************************************************************/
@@ -123,6 +124,8 @@ namespace UordiofUorcrefiti
             string nomeHeroi = "", nomeMagia = "";
             float pontosDeVida = 100.0f;
             int utHeroi, custoUT, valorDano;
+
+
         }
     }
   }
