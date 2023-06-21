@@ -43,7 +43,7 @@ namespace UOU
             return this.UTHeroi;
         }
 
-        public void AumentarUT(int valor)
+        public void AumentarUT(int valor = 3)
         {
             this.UTHeroi += valor;
         }
@@ -68,13 +68,16 @@ namespace UOU
         public override void LancarMagia(Heroi alvo)
         {
             if (this.UTHeroi >= this.magia.CustoUT)
-            {
+            {   
+                Console.WriteLine("\n");
                 Console.WriteLine(this.Nome + " lançou a magia " + this.magia.Nome + " em " + alvo.GetNome());
                 float dano = this.magia.Lancar();
                 alvo.ReduzirVida(dano);
                 Console.WriteLine("Dano causado: " + dano);
                 Console.WriteLine("Pts de vida restantes de " + alvo.GetNome() + ": " + alvo.GetPtsVida());
                 this.ReduzirUT(this.magia.CustoUT);
+                this.AumentarUT(this.magia.CustoUT);
+                Console.WriteLine("\n");
             }
             else
             {
@@ -85,13 +88,16 @@ namespace UOU
         public override void AtacarComArma(Heroi alvo)
         {
             if (this.UTHeroi >= this.arma.CustoUT)
-            {
+            {   
+                Console.WriteLine("\n");
                 Console.WriteLine(this.Nome + " atacou com a arma " + this.arma.Nome + " em " + alvo.GetNome());
                 float dano = this.arma.Atacar();
                 alvo.ReduzirVida(dano);
                 Console.WriteLine("Dano causado: " + dano);
                 Console.WriteLine("Pts de vida restantes de " + alvo.GetNome() + ": " + alvo.GetPtsVida());
                 this.ReduzirUT(this.arma.CustoUT);
+                this.AumentarUT(this.arma.CustoUT);
+                Console.WriteLine("\n");
             }
             else
             {
@@ -121,6 +127,9 @@ namespace UOU
                 Console.WriteLine("Dano causado: " + dano);
                 Console.WriteLine("Pts de vida restantes de " + alvo.GetNome() + ": " + alvo.GetPtsVida());
                 this.ReduzirUT(this.magia.CustoUT);
+
+                this.AumentarUT(this.magia.CustoUT);
+          
             }
         }
 
@@ -134,6 +143,8 @@ namespace UOU
                 Console.WriteLine("Dano causado: " + dano);
                 Console.WriteLine("Pts de vida restantes de " + alvo.GetNome() + ": " + alvo.GetPtsVida());
                 this.ReduzirUT(this.arma.CustoUT);
+                this.AumentarUT(this.arma.CustoUT);
+              
             }
             else
             {
@@ -189,7 +200,7 @@ namespace UOU
         private static readonly short GAMEOVER = 2;
         private static readonly short VIDA = 80;
 
-        private short Status;
+        private short Status{get; set;}
 
         public UoU()
         {
@@ -218,41 +229,51 @@ namespace UOU
                 // Código de inicialização e configuração
 
                 UoU game = new UoU();
+                game.Status = UoU.RUNNING;
                 game.Print();
 
+                string ataque = string.Empty;
+                 
                 while (game.Status == UoU.RUNNING)
                 {
                     Console.WriteLine("Ataque da Aliança:");
                     Console.WriteLine("Digite M para Magia e A para arma...");
-                    string ataque = Console.ReadLine();
+                     ataque = Console.ReadLine();
+                     Console.WriteLine("\n");
 
                     // Trecho de código que realiza os ataques da Aliança e da Horda
 
-                    if (ataque.Equals("M"))
+                    if (ataque.Equals("M") || ataque.Equals("m"))
                         HeroAlianca.LancarMagia(HeroHorda);
-                    else if (ataque.Equals("A"))
+                  
+                    else if (ataque.Equals("A") || ataque.Equals("a"))
                         HeroAlianca.AtacarComArma(HeroHorda);
 
                     if (HeroHorda.GetPtsVida() <= 0)
                     {
+                        Console.WriteLine("\n");
                         game.Status = UoU.GAMEOVER;
                         Console.WriteLine("Game Over!");
+                        Console.WriteLine("\n");
                         break;
                     }
-
+                    Console.WriteLine("\n");
                     Console.WriteLine("Ataque da Horda:");
                     Console.WriteLine("Digite M para Magia e A para arma...");
                     ataque = Console.ReadLine();
+                    Console.WriteLine("\n");
 
-                    if (ataque.Equals("M"))
+                    if (ataque.Equals("M") || ataque.Equals("m"))
                         HeroHorda.LancarMagia(HeroAlianca);
-                    else if (ataque.Equals("A"))
+                    else if (ataque.Equals("A") || ataque.Equals("a"))
                         HeroHorda.AtacarComArma(HeroAlianca);
 
                     if (HeroAlianca.GetPtsVida() <= 0)
                     {
+                        Console.WriteLine("\n");
                         game.Status = UoU.GAMEOVER;
                         Console.WriteLine("Game Over!");
+                        Console.WriteLine("\n");
                         break;
                     }
 
@@ -260,6 +281,16 @@ namespace UOU
                 }
 
                 // Código a ser executado após o término do jogo
+                if (HeroAlianca.GetPtsVida() > 0 && HeroHorda.GetPtsVida() <= 0){
+                    Console.WriteLine("\n");
+                   Console.WriteLine("Herói da Aliança venceu!");
+                }
+                 else
+                   if (HeroAlianca.GetPtsVida() <= 0 && HeroHorda.GetPtsVida() > 0){
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Herói da Horda venceu!");
+                }
+                
             }
         }
     }
